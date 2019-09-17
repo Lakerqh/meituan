@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+</head>
+<body>
+    <script>
+        let str = `\FE001\FO001 涵 洞 积 水 深\n\FE001\FO001 \M4米\n\FE001\FO001 涵洞安全正常通行\n\FE001\FO001 扫黑除恶举报电话市扫黑办82402493市公安局85395140\n`
+        str=str.replace(/\FE001\FO001/g,'')
+        console.log(str)
+        ary = str.split("\n")
+        console.log(ary)
+    </script>
+</body>
+</html>

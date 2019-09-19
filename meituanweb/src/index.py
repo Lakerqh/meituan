@@ -1,5 +1,6 @@
 # coding=utf-8
 from common import *
+import register
 
 query = Query()
 db = query.conn()

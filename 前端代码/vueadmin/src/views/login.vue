@@ -1,12 +1,16 @@
 <template>
     <div id="login">
         <div class="box">
-            <input type="text" v-model="username">
-            <input type="text" v-model="password">
+            <input type="text" v-model="name">
+            <input type="text" v-model="message">
             <div>
-                <span @click="login">登录</span>
-                <span @click="register">注册</span>
+                <span @click="login">提交</span>
+                <span @click="delete_note">删除</span>{{id}}
+                <span @click="updatenote">修改</span>{{id}}
             </div>
+        </div>
+        <div>
+            <p v-for="(item,index) in list" :key="index" @click="selectnote(item.id)">{{item.name}}:{{item.message}}</p>
         </div>
     </div>
 </template>
@@ -14,30 +18,49 @@
     export default {
         data() {
             return {
-                username: '',
-                password: '',
+                name: '',
+                message: '',
+                list: [],
+                id:''
             }
         },
         mounted() {
-            // this.register()
+            this.getlist()
         },
         methods: {
             login() {
                 let params = {
-                    username: this.username,
-                    password: this.password
+                    name: this.name,
+                    message: this.message
                 }
-                this.$http.post('/api/login', params).then(res => {
-
+                this.$http.post('/api/add', params).then(res => {
+                    this.getlist()
                 })
             },
-            register() {
+            getlist() {
+                this.$http.get('/api/list').then(res => {
+                    this.list = res.data.result
+                })
+            },
+            selectnote(id){
+                this.id = id
+            },
+            delete_note() {
                 let params = {
-                    username: this.username,
-                    password: this.password
+                    id: this.id,
                 }
-                this.$http.post('/api/register', params).then(res => {
-
+                this.$http.post('/api/deletenote',params).then(res => {
+                    this.getlist()
+                })
+            },
+            updatenote(){
+                let params = {
+                    id: this.id,
+                    name:'zhoujielun',
+                    message:'china person'
+                }
+                this.$http.post('/api/updatenote',params).then(res => {
+                    this.getlist()
                 })
             }
         }
@@ -47,14 +70,7 @@
 <style lang="scss">
     #login {
         height: 100%;
-        padding-top: 250px;
-        box-sizing: border-box;
-
-        .box {
-            width: 500px;
-            height: 350px;
-            margin: 0 auto;
-        }
+        
     }
 
 </style>

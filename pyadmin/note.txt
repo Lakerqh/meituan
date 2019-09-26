@@ -1,0 +1,5 @@
+创建数据库：
+flask shell
+
+>>> from pyadmin import db
+>>> db.create_all()

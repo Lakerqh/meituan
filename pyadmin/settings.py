@@ -1,3 +1,7 @@
+import os
+
+from pyadmin import app
+
 # -*- coding: utf-8 -*-
 
 DIALECT = 'mysql'

@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
 import Vant from 'vant'
 import 'vant/lib/index.css'
 import animate from 'animate.css'
@@ -13,6 +15,7 @@ import http from './api/index'
 
 Vue.use(Echarts)
 Vue.use(Vant)
+Vue.use(ElementUI)
 Vue.use(VueWechatTitle);
 
 Vue.prototype.echarts = Echarts

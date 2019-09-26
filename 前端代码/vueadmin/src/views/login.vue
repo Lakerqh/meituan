@@ -1,16 +1,18 @@
 <template>
     <div id="login">
         <div class="box">
-            <input type="text" v-model="name">
-            <input type="text" v-model="message">
-            <div>
-                <span @click="login">提交</span>
-                <span @click="delete_note">删除</span>{{id}}
-                <span @click="updatenote">修改</span>{{id}}
-            </div>
-        </div>
-        <div>
-            <p v-for="(item,index) in list" :key="index" @click="selectnote(item.id)">{{item.name}}:{{item.message}}</p>
+            <h3>QH个人Python项目系统</h3>
+            <el-input placeholder="请输入账号" v-model="username">
+                <template slot="prepend">账号</template>
+            </el-input>
+            <!-- <el-input placeholder="请输入密码" v-model="password">
+                <template slot="prepend">密码</template>
+            </el-input> -->
+            <el-input type="password" autocomplete="off" v-model="password">
+                <template slot="prepend">密码</template>
+            </el-input>
+            <el-button type="primary" @click="onSubmit">登录</el-button>
+            <el-button>注册</el-button>
         </div>
     </div>
 </template>
@@ -18,59 +20,44 @@
     export default {
         data() {
             return {
-                name: '',
-                message: '',
-                list: [],
-                id:''
-            }
-        },
-        mounted() {
-            this.getlist()
-        },
-        methods: {
-            login() {
-                let params = {
-                    name: this.name,
-                    message: this.message
-                }
-                this.$http.post('/api/add', params).then(res => {
-                    this.getlist()
-                })
-            },
-            getlist() {
-                this.$http.get('/api/list').then(res => {
-                    this.list = res.data.result
-                })
-            },
-            selectnote(id){
-                this.id = id
-            },
-            delete_note() {
-                let params = {
-                    id: this.id,
-                }
-                this.$http.post('/api/deletenote',params).then(res => {
-                    this.getlist()
-                })
-            },
-            updatenote(){
-                let params = {
-                    id: this.id,
-                    name:'zhoujielun',
-                    message:'china person'
-                }
-                this.$http.post('/api/updatenote',params).then(res => {
-                    this.getlist()
-                })
+                username: '',
+                password: '',
             }
         }
     }
 
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
     #login {
         height: 100%;
-        
+        background: url('./../../static/img/login/login.png') no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .box {
+            width: 30%;
+            height: 35%;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+            padding: 0 50px;
+            box-sizing: border-box;
+
+            h3 {
+                color: #365a7a;
+                text-align: center;
+                margin: 30px 0 20px 0;
+            }
+
+            .el-input-group {
+                margin: 20px 0;
+            }
+            .el-button--primary{
+                width: 30%
+            }
+        }
     }
 
 </style>
